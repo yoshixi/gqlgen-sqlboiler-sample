@@ -1,0 +1,32 @@
+version: '3.6'
+services:
+  # swagger-api:
+  #   image: stoplight/prism:4
+  #   volumes:
+  #     - ./controllers/gen/http/openapi3.yaml:/data/swagger.yaml
+  #   command: mock -h 0.0.0.0 /data/swagger.yaml
+  #   ports:
+  #     - "4010:4010"
+  postgres:
+    image: postgres:13.1
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=gqlgen-sqlboiler-sample_development
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - db:/var/lib/postgresql/data:z
+  pgadmin-compose:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "test@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "test"
+    ports:
+      - "16543:80"
+    depends_on:
+      - postgres
+volumes:
+  db:
