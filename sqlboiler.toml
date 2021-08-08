@@ -1,0 +1,11 @@
+output   = "infra/models"
+pkgname="models"
+wipe     = true
+add-global-variants=true
+[psql]
+dbname="gqlgen-sqlboiler-sample_development"
+host="127.0.0.1"
+user="postgres"
+pass="postgres"
+sslmode="disable"
+blacklist = ["schema_migrations_test", "schema_migrations"]
