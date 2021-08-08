@@ -9,6 +9,7 @@ import (
 // NewRepository ...
 func NewRepository() (Repository, func()) {
 	db, closeDB := conn.SetupDB()
+
 	return repositoryImpl{
     db: db,
   }, func() {
