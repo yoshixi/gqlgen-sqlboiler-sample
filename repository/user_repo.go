@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
   "database/sql"
+  "fmt"
 
 	"github.com/yoshixj/gqlgen-sqlboiler-sample/domain"
 	"github.com/yoshixj/gqlgen-sqlboiler-sample/infra/models"
@@ -23,11 +24,18 @@ type userRepository struct {
 
 // List ...
 func (p *userRepository) List(ctx context.Context) ([]*domain.User, error) {
+  fmt.Printf("List repository")
 	users, err := models.Users(qm.Limit(10)).All(ctx, p.db)
 	if err != nil {
 		return []*domain.User{}, err
 	}
-  return []*domain.User{ { User: users[0] } }, nil
+  list := make([]*domain.User, len(users))
+
+  for i, u := range users {
+    list[i] = &domain.User{ User: u }
+  }
+
+  return list, nil
 }
 
 
@@ -42,14 +50,10 @@ func (p *userRepository) GetByID(ctx context.Context, id string) (*domain.User, 
 
 
 // Create ...
-func (p *userRepository) Create(ctx context.Context, user *domain.User) (*domain.User, error) {
+func (p *userRepository) Create(ctx context.Context, user *domain.User) error {
   err := user.Insert(ctx, p.db, boil.Infer())
 
-  if err!= nil {
-    return &domain.User{}, err
-  }
-
-  return user, nil
+  return err
 }
 
 

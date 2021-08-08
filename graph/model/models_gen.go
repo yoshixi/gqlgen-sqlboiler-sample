@@ -2,19 +2,61 @@
 
 package model
 
+import (
+	"github.com/yoshixj/gqlgen-sqlboiler-sample/domain"
+)
+
+type Connection interface {
+	IsConnection()
+}
+
+type Edge interface {
+	IsEdge()
+}
+
+type Noop interface {
+	IsNoop()
+}
+
+type CreateUserInput struct {
+	FirstName string `json:"firstName"`
+	LastName  string `json:"lastName"`
+	Email     string `json:"email"`
+}
+
+type Input struct {
+	ClientMutationID *string `json:"clientMutationId"`
+}
+
 type NewTodo struct {
 	Text   string `json:"text"`
 	UserID string `json:"userId"`
 }
 
-type Todo struct {
-	ID   string `json:"id"`
-	Text string `json:"text"`
-	Done bool   `json:"done"`
-	User *User  `json:"user"`
+type PageInfo struct {
+	StartCursor     string `json:"startCursor"`
+	EndCursor       string `json:"endCursor"`
+	HasNextPage     bool   `json:"hasNextPage"`
+	HasPreviousPage bool   `json:"hasPreviousPage"`
 }
 
-type User struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
+type Todo struct {
+	ID   string       `json:"id"`
+	Text string       `json:"text"`
+	Done bool         `json:"done"`
+	User *domain.User `json:"user"`
 }
+
+type UserConnection struct {
+	PageInfo *PageInfo   `json:"pageInfo"`
+	Edges    []*UserEdge `json:"edges"`
+}
+
+func (UserConnection) IsConnection() {}
+
+type UserEdge struct {
+	Cursor string       `json:"cursor"`
+	Node   *domain.User `json:"node"`
+}
+
+func (UserEdge) IsEdge() {}

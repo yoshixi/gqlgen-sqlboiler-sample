@@ -1,0 +1,34 @@
+type User @goModel(model: "github.com/yoshixj/gqlgen-sqlboiler-sample/domain.User") {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  createdAt: Time!
+  updatedAt: Time!
+}
+
+type UserConnection implements Connection {
+   pageInfo: PageInfo!
+   edges: [UserEdge!]!
+}
+
+type UserEdge implements Edge {
+  cursor: String!
+  node: User!
+}
+
+extend type Query {
+  users: UserConnection!
+  user(id: ID!): User!
+}
+
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+}
+
+extend type Mutation {
+  createUser(input: CreateUserInput!): User!
+}
+

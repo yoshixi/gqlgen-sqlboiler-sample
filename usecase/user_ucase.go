@@ -27,3 +27,8 @@ func (u UserUsecase) GetByID(ctx context.Context, id string) (*domain.User, erro
   return u.repo.User().GetByID(ctx, id)
 }
 
+// Create ...
+func (u UserUsecase) Create(ctx context.Context, user *domain.User) error {
+  return u.repo.User().Create(ctx, user)
+}
+
