@@ -1,9 +1,9 @@
 package repository
 
 import (
-  "database/sql"
-  "github.com/yoshixj/gqlgen-sqlboiler-sample/domain"
-  "github.com/yoshixj/gqlgen-sqlboiler-sample/infra/conn"
+	"database/sql"
+	"github.com/yoshixj/gqlgen-sqlboiler-sample/domain"
+	"github.com/yoshixj/gqlgen-sqlboiler-sample/infra/conn"
 )
 
 // NewRepository ...
@@ -11,10 +11,10 @@ func NewRepository() (Repository, func()) {
 	db, closeDB := conn.SetupDB()
 
 	return repositoryImpl{
-    db: db,
-  }, func() {
-		closeDB()
-	}
+			db: db,
+		}, func() {
+			closeDB()
+		}
 }
 
 // Repository ...
@@ -23,10 +23,9 @@ type Repository interface {
 }
 
 type repositoryImpl struct {
-  db *sql.DB
+	db *sql.DB
 }
 
 func (impl repositoryImpl) User() domain.UserRepository {
-  return NewUserRepository(impl.db)
+	return NewUserRepository(impl.db)
 }
-

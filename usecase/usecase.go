@@ -24,4 +24,3 @@ type usecaseImpl struct {
 func (impl usecaseImpl) User() domain.UserUsecase {
 	return NewUserUsecase(impl.repo)
 }
-

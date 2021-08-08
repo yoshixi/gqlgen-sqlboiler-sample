@@ -1,20 +1,20 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
-  "fmt"
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
-	"github.com/yoshixj/gqlgen-sqlboiler-sample/graph/resolver"
 	"github.com/yoshixj/gqlgen-sqlboiler-sample/graph/generated"
+	"github.com/yoshixj/gqlgen-sqlboiler-sample/graph/resolver"
 	"github.com/yoshixj/gqlgen-sqlboiler-sample/repository"
 	"github.com/yoshixj/gqlgen-sqlboiler-sample/usecase"
 
 	"github.com/go-chi/chi"
-  "github.com/joho/godotenv"
+	"github.com/joho/godotenv"
 
 	_ "github.com/lib/pq" // here
 )
@@ -38,7 +38,7 @@ func EnvLoad() {
 }
 
 func main() {
-  EnvLoad()
+	EnvLoad()
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -71,4 +71,3 @@ func main() {
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
 	log.Fatal(http.ListenAndServe(":"+port, r))
 }
-

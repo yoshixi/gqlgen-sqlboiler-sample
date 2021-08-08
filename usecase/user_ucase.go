@@ -19,16 +19,15 @@ func NewUserUsecase(repo repository.Repository) domain.UserUsecase {
 
 // List ...
 func (u UserUsecase) List(ctx context.Context) ([]*domain.User, error) {
-  return u.repo.User().List(ctx)
+	return u.repo.User().List(ctx)
 }
 
 // GetByID  ...
 func (u UserUsecase) GetByID(ctx context.Context, id string) (*domain.User, error) {
-  return u.repo.User().GetByID(ctx, id)
+	return u.repo.User().GetByID(ctx, id)
 }
 
 // Create ...
 func (u UserUsecase) Create(ctx context.Context, user *domain.User) error {
-  return u.repo.User().Create(ctx, user)
+	return u.repo.User().Create(ctx, user)
 }
-
